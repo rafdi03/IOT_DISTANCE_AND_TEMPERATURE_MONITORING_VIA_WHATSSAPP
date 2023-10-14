@@ -10,7 +10,7 @@ const char* password = "******";
 String phoneNumber = "*******";
 String apiKey = "******";
  
-const long interval = 30 * 60 * 1000;
+const long interval = 30 * 60 * 1000; //interval waktu
 unsigned long previousMillis = 0;
  
 
