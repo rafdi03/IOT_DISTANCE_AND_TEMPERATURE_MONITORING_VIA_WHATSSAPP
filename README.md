@@ -1,57 +1,57 @@
-# IOT_DISTANCE_AND_TEMPERATURE_MONITORING_VIA_WHATSSAPP
-MONITORING JARAK DAN SUHU IOT VIA WHATSSAPP
+# IOT_DISTANCE_AND_TEMPERATURE_MONITORING_VIA_WHATSAPP
+MONITORING DISTANCE AND TEMPERATURE VIA IOT AND WHATSAPP
 
-Projek iot ini menggunakan Mikrokontroler ESP8266 dan sensornya menggunakan DHT11 dan ULTRASONIC ini sebagai projek sederhana menggunakan mikrokontroler untuk menyambungkan ke WA saya menggunakan [callmebot](https://www.callmebot.com//) sebagai API yang gratis dan dapat digunakan.
+This IoT project uses the ESP8266 microcontroller and sensors, specifically the DHT11 and ULTRASONIC sensors. It's a simple project that connects to WhatsApp using the [callmebot](https://www.callmebot.com//) API, which is free and easy to use.
 
-Berikut adalah langkah-langkah umum untuk menulis kode :
+Here are the general steps to write the code:
 
-1. **Persiapan Hardware**:
-   - Pastikan Anda memiliki perangkat ESP8266 yang sudah terhubung dengan sensor DHT11 dan sensor ultrasonik (HC-SR04).
-   - Hubungkan kabel-kabel dari sensor ke pin yang sesuai pada ESP8266. Pastikan bahwa kabel positif, negatif, dan sinyal terhubung dengan benar.
+1. **Hardware Setup**:
+   - Make sure you have an ESP8266 device connected to DHT11 and ULTRASONIC (HC-SR04) sensors.
+   - Connect the wires from the sensors to the appropriate pins on the ESP8266, ensuring that the positive, negative, and signal wires are correctly connected.
 
-2. **Instalasi Library**:
-   - Pastikan Anda telah menginstal library yang diperlukan. Di dalam kode Anda, Anda menggunakan beberapa library seperti `ESP8266WiFi`, `ESP8266HTTPClient`, `WiFiClient`, dan lainnya. Anda perlu memastikan bahwa library-library ini sudah terinstal di dalam Arduino IDE. Anda bisa menginstalnya melalui menu "Sketch" -> "Include Library" -> "Manage Libraries" dan mencari nama library yang sesuai.
+2. **Library Installation**:
+   - Ensure you have installed the necessary libraries. In your code, you're using libraries like `ESP8266WiFi`, `ESP8266HTTPClient`, `WiFiClient`, and others. Make sure these libraries are installed in the Arduino IDE. You can install them through the "Sketch" -> "Include Library" -> "Manage Libraries" menu by searching for the appropriate library names.
 
-3. **Konfigurasi WiFi**:
-   - Gantilah nilai `ssid` dan `password` sesuai dengan informasi jaringan WiFi yang akan Anda gunakan.
+3. **WiFi Configuration**:
+   - Change the values of `ssid` and `password` to match your WiFi network information.
 
-4. **Konfigurasi Nomor WhatsApp dan API Key**:
-   - Gantilah nilai `phoneNumber` dengan nomor telepon WhatsApp yang akan menerima pesan.
-   - Gantilah nilai `apiKey` dengan kunci API yang Anda dapatkan dari layanan "callmebot.com".
+4. **WhatsApp Number and API Key Configuration**:
+   - Replace the value of `phoneNumber` with the WhatsApp phone number that will receive messages.
+   - Replace the value of `apiKey` with the API key you obtain from "callmebot.com."
 
-5. **Inisialisasi Sensor**:
-   - Tentukan pin yang akan digunakan untuk menghubungkan sensor DHT11 dan sensor ultrasonik (HC-SR04) dengan ESP8266. Atur pin tersebut dengan benar dalam definisi pin.
+5. **Sensor Initialization**:
+   - Specify the pins used to connect the DHT11 and ULTRASONIC (HC-SR04) sensors to the ESP8266. Set these pins correctly in the pin definitions.
 
 6. **Setup() Function**:
-   - Dalam `setup()`, inisialisasikan komunikasi serial dengan `Serial.begin(115200)`.
-   - Mulailah koneksi WiFi menggunakan `WiFi.begin(ssid, password)`.
-   - Tunggu hingga perangkat terhubung ke jaringan WiFi dengan loop `while(WiFi.status() != WL_CONNECTED)`.
-   - Setelah koneksi WiFi berhasil, inisialisasikan sensor DHT11 dan atur mode pin sensor ultrasonik.
+   - In the `setup()`, initialize serial communication with `Serial.begin(115200)`.
+   - Start the WiFi connection using `WiFi.begin(ssid, password)`.
+   - Wait until the device is connected to the WiFi network with a `while(WiFi.status() != WL_CONNECTED)` loop.
+   - After a successful WiFi connection, initialize the DHT11 sensor and set the pin mode for the ultrasonic sensor.
 
 7. **Loop() Function**:
-   - Dalam `loop()`, gunakan perulangan untuk secara berkala membaca sensor dan mengirimkan pesan WhatsApp.
-   - Gunakan variabel `interval` dan `previousMillis` untuk mengontrol frekuensi pengiriman pesan.
-   - Dalam setiap iterasi, baca suhu dan kelembaban dari sensor DHT11, lalu baca jarak dari sensor ultrasonik.
-   - Buat pesan dengan data yang diukur.
-   - Gunakan fungsi `sendMessage()` untuk mengirim pesan ke nomor WhatsApp yang telah ditentukan.
+   - In `loop()`, use a loop to periodically read the sensors and send WhatsApp messages.
+   - Use variables like `interval` and `previousMillis` to control the message sending frequency.
+   - In each iteration, read the temperature and humidity from the DHT11 sensor, and read the distance from the ultrasonic sensor.
+   - Create a message with the measured data.
+   - Use the `sendMessage()` function to send the message to the specified WhatsApp number.
 
 8. **measureDistance() Function**:
-   - Ini adalah fungsi yang digunakan untuk mengukur jarak dengan sensor ultrasonik. Ini harus dipanggil dari `loop()`.
-   - Fungsi ini mengatur sinyal ultrasonik, mengukur waktu pantulan, dan menghitung jarak.
+   - This function is used to measure distance with the ultrasonic sensor and should be called from `loop()`.
+   - The function sets the ultrasonic signal, measures the bounce-back time, and calculates the distance.
 
 9. **sendMessage() Function**:
-   - Fungsi ini digunakan untuk mengirim pesan WhatsApp dengan data yang diukur.
-   - Fungsi ini membangun URL yang berisi nomor telepon, kunci API, dan pesan yang akan dikirim.
-   - Menggunakan `HTTPClient`, koneksi HTTP dibuat ke layanan "callmebot.com", dan pesan dikirim.
+   - This function is used to send a WhatsApp message with the measured data.
+   - It constructs a URL containing the phone number, API key, and the message to be sent.
+   - Using `HTTPClient`, it establishes an HTTP connection to the "callmebot.com" service and sends the message.
 
-10. **Uji Kode**: Setelah menulis kode, simpan dan kompilasi kode dalam Arduino IDE. Pastikan tidak ada kesalahan sintaksis atau kompilasi.
-    
-11. **Upload Kode**: Upload kode ke perangkat ESP8266 Anda.
+10. **Test the Code**: After writing the code, save and compile it in the Arduino IDE. Ensure there are no syntax errors or compilation issues.
 
-12. **Monitor Serial**: Gunakan monitor serial dalam Arduino IDE untuk melihat keluaran dari perangkat. Hal ini akan membantu Anda memeriksa apakah perangkat berhasil terhubung ke WiFi dan mengirim pesan WhatsApp dengan benar.
+11. **Upload the Code**: Upload the code to your ESP8266 device.
 
-13. **Pantau Hasilnya**: Pastikan perangkat Anda berfungsi seperti yang diharapkan. Pastikan juga bahwa pesan WhatsApp berhasil terkirim ke nomor yang ditentukan.
+12. **Monitor Serial Output**: Use the serial monitor in the Arduino IDE to view the device's output. This will help you check if the device successfully connects to WiFi and sends WhatsApp messages correctly.
 
-14. **Perbaikan dan Peningkatan**: Jika diperlukan, Anda dapat memperbaiki atau memodifikasi kode untuk memenuhi kebutuhan khusus Anda atau untuk menambahkan fitur tambahan.
+13. **Monitor the Results**: Make sure your device functions as expected. Also, verify that WhatsApp messages are sent to the specified number.
 
-Itu adalah langkah-langkah umum untuk menulis dan menguji kode yang telah Anda berikan. Pastikan untuk memeriksa dokumentasi resmi dari ESP8266, DHT11, HC-SR04, dan layanan "callmebot.com" untuk informasi lebih lanjut tentang penggunaan dan konfigurasi mereka.
+14. **Debug and Enhance**: If needed, you can debug or modify the code to meet your specific requirements or add additional features.
+
+This code allows you to monitor temperature and distance using IoT and send the data via WhatsApp, which can be handy for various applications.
